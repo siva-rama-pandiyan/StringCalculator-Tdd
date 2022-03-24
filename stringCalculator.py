@@ -19,6 +19,10 @@ def test():
     assert(add("1\n2,3") == 6)
     assert(add("1,4\n3") == 8)
 
+    #different delimeter
+    assert(add("//;\n1;2") == 3)
+    assert(add("//*\n5*5") == 10)
+
     print("All Test cases Completed Successfully")
 
 #Main function
@@ -30,6 +34,9 @@ def add(inputString):
     else:
         delimeter = ","
         inputString = inputString.replace("\n", ",")
+        if inputString[0] == "/" and inputString[1] == "/":
+                delimeter = inputString[2]
+                inputString = inputString[4:]
         stringNumbers = inputString.split(delimeter)
         total = sum([int(num) for num in stringNumbers])
         return total    
