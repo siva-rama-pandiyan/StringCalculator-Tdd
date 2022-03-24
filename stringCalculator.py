@@ -23,7 +23,22 @@ def test():
     assert(add("//;\n1;2") == 3)
     assert(add("//*\n5*5") == 10)
 
+    #String number with negative numbers
+    assert(add("//*\n5*-5*-10*-8")== "Exception")
+    assert(add("//*\n5*15*10*4") == 34)
+
     print("All Test cases Completed Successfully")
+
+#Below function will the check whether string number having any negative numbers
+def checkNegativeNumbers(stringNumbers):
+    negatives = []
+    isNegativeExist = False
+    for number in stringNumbers:
+        if int(number)< 0:
+            negatives.append(int(number))
+    if len(negatives) > 0:
+        isNegativeExist = True
+    return (negatives, isNegativeExist)
 
 #Main function
 def add(inputString):
@@ -32,13 +47,20 @@ def add(inputString):
     elif len(inputString) == 1 and inputString.isnumeric():
         return int(inputString)
     else:
-        delimeter = ","
-        inputString = inputString.replace("\n", ",")
-        if inputString[0] == "/" and inputString[1] == "/":
-                delimeter = inputString[2]
-                inputString = inputString[4:]
-        stringNumbers = inputString.split(delimeter)
-        total = sum([int(num) for num in stringNumbers])
-        return total    
+        try:
+            delimeter = ","
+            inputString = inputString.replace("\n", ",")
+            if inputString[0] == "/" and inputString[1] == "/":
+                    delimeter = inputString[2]
+                    inputString = inputString[4:]
+            stringNumbers = inputString.split(delimeter)
+            checkNegativeExist  = checkNegativeNumbers(stringNumbers)
+            if checkNegativeExist[1]:
+                raise Exception('negatives not allowed --> {}'.format(checkNegativeExist[0]))
+            total = sum([int(num) for num in stringNumbers])
+            return total    
+        except Exception as e:
+            print (e)
+            return "Exception"
 
 test()
