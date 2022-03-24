@@ -15,6 +15,10 @@ def test():
     assert(add("1,2,3,4,5") == 15)
     assert(add("20,30,40,50") == 140)
 
+    #new lines between numbers
+    assert(add("1\n2,3") == 6)
+    assert(add("1,4\n3") == 8)
+
     print("All Test cases Completed Successfully")
 
 #Main function
@@ -24,7 +28,9 @@ def add(inputString):
     elif len(inputString) == 1 and inputString.isnumeric():
         return int(inputString)
     else:
-        stringNumbers = inputString.split(",")
+        delimeter = ","
+        inputString = inputString.replace("\n", ",")
+        stringNumbers = inputString.split(delimeter)
         total = sum([int(num) for num in stringNumbers])
         return total    
 
