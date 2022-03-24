@@ -24,11 +24,8 @@ def add(inputString):
     elif len(inputString) == 1 and inputString.isnumeric():
         return int(inputString)
     else:
-        total = 0
         stringNumbers = inputString.split(",")
-        for number in stringNumbers:
-            total += int(number)
+        total = sum([int(num) for num in stringNumbers])
         return total    
-
 
 test()
